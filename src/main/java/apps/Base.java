@@ -19,6 +19,7 @@ public class Base {
     public WebDriver chromeDriverConnection(){
         System.setProperty("webdriver.chrome.driver","resources/chromedriver.exe");
         driver=new ChromeDriver();
+        wait = new WebDriverWait(driver, 10);
         driver.manage().window().maximize();
         return driver;
     }
@@ -44,9 +45,7 @@ public class Base {
         driver.findElement(locator).click();
     }
     public void click(WebElement element){
-        wait = new WebDriverWait(driver, 10);
-        wait.until(ExpectedConditions.visibilityOf(element));
-        wait.until(ExpectedConditions.elementToBeClickable(element)).click();
+        element.click();
     }
     public String click(List<WebElement> elements, int index){
         String radio=elements.get(index).getAttribute("value");
