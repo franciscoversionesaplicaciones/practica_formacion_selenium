@@ -9,9 +9,9 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.List;
 
-public class GoogleHomePage extends Base{
+public class GoogleHomePage extends Base {
     //Variable que almacena el nombre del producto que se va a buscar
-    String nombreProducto="compresor eléctrico";
+    String nombreProducto = "compresor eléctrico";
     //Localizador del botón para aceptar cookies de Google
     By botonAceptCookies = By.id("L2AGLb");
     //Localizador del buscador de Google
@@ -23,28 +23,34 @@ public class GoogleHomePage extends Base{
     //Localizador de la opción para ordenar de menor a mayor precio
     By menorAMayor = By.id("s-result-sort-select_1");
     By nombresProductos = By.xpath("//span[@class='a-size-medium a-color-base a-text-normal']");
-    By precioEnteros=By.xpath("//span[@class='a-price-whole']");
-    By precioDecimales=By.xpath("//span[@class='a-price-fraction']");
-    By monedas=By.xpath("//span[@class='a-price-symbol']");
+    By precioEnteros = By.xpath("//span[@class='a-price-whole']");
+    By precioDecimales = By.xpath("//span[@class='a-price-fraction']");
+    By monedas = By.xpath("//span[@class='a-price-symbol']");
+
     public GoogleHomePage(WebDriver driver) {
         super(driver);
     }
 
+    //Método para aceptar Cookies de Google
     public void aceptaCookiesGoogle(WebDriver driver) {
-        WebDriverWait wait=new WebDriverWait(driver, 10);
+        WebDriverWait wait = new WebDriverWait(driver, 10);
         WebElement botAcepCook = findElement(botonAceptCookies);
         Actions scrollVertical = new Actions(driver);
         scrollVertical.scrollToElement(botAcepCook).perform();
         wait.until(ExpectedConditions.elementToBeClickable(botAcepCook));
         botAcepCook.click();
     }
-    public void buscaEnGoogle(){
+
+    //Método para escribir el nombre del producto en el buscador de Google y pulsar ENTER
+    public void buscaEnGoogle() {
         WebElement buscGoogl = findElement(buscadorGoogle);
         buscGoogl.sendKeys(nombreProducto);
         buscGoogl.submit();
     }
-    public void filtraPrime(WebDriver driver){
-        WebDriverWait wait=new WebDriverWait(driver, 10);
+
+    //Método para filtrar el listado de productos por Prime
+    public void filtraPrime(WebDriver driver) {
+        WebDriverWait wait = new WebDriverWait(driver, 10);
         WebElement prim = findElement(prime);
         Actions scrollVertic = new Actions(driver);
         scrollVertic.scrollToElement(prim).perform();
@@ -52,21 +58,24 @@ public class GoogleHomePage extends Base{
         Actions act = new Actions(driver);
         act.doubleClick(prim).perform();
     }
-    public void precioMenorAMayor(){
+
+    //Métoso para filtrar la lista de productos por precio de menos a mayor
+    public void precioMenorAMayor() {
         WebElement iconDespOrd = findElement(iconoDesplegableOrdenar);
         iconDespOrd.click();
         WebElement menAMay = findElement(menorAMayor);
         menAMay.click();
     }
-    //Método para mostrar por consola los nombres y los precios de los productos del listado
-    public void imprimeNombresYPrecios(){
+
+    //Método para mostrar por consola los nombres y los precios de la lista de productos
+    public void imprimeNombresYPrecios() {
         List<WebElement> nombProductos = findElements(nombresProductos);
         List<WebElement> precEnt = findElements(precioEnteros);
         List<WebElement> precDec = findElements(precioDecimales);
         List<WebElement> moned = findElements(monedas);
         for (int i = 0; i < nombProductos.size(); i++) {
             System.out.println("Producto: " + nombProductos.get(i).getText());
-            System.out.println("Precio: " + precEnt.get(i).getText()+","+precDec.get(i).getText()+moned.get(i).getText());
+            System.out.println("Precio: " + precEnt.get(i).getText() + "," + precDec.get(i).getText() + moned.get(i).getText());
         }
     }
 }

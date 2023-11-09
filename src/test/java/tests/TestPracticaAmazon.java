@@ -3,23 +3,23 @@ package tests;
 import org.openqa.selenium.WebDriver;
 import apps.*;
 
-import java.sql.Driver;
-
 public class TestPracticaAmazon {
     private static WebDriver driver;
-    public static void main(String[] args)  {
+
+    public static void main(String[] args) {
         setup();
     }
+
     public static void setup() {
-        Base base=new Base(driver);
-        driver=base.chromeDriverConnection();
+        Base base = new Base(driver);
+        driver = base.chromeDriverConnection();
         base.visit("https://google.es");
-        GoogleHomePage homepage=new GoogleHomePage(driver);
+        GoogleHomePage homepage = new GoogleHomePage(driver);
         homepage.aceptaCookiesGoogle(driver);
         homepage.buscaEnGoogle();
-        ResultsGooglePage results=new ResultsGooglePage(driver);
+        ResultsGooglePage results = new ResultsGooglePage(driver);
         results.seleccionaProductoAmazon();
-        ProductPage product=new ProductPage(driver);
+        ProductPage product = new ProductPage(driver);
         product.cambiaAPestanaNavegador(driver);
         product.aceptaCookiesAmazon();
         product.imprimePrecioYFecha();
